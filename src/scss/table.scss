@@ -1,0 +1,33 @@
+
+
+.body {
+
+
+    &__table {
+        background-color: transparent;
+        border-collapse: collapse;
+    }
+
+    &__head,.body__head-cell {
+        padding: 10px;
+        border: 2px solid #C283F3;
+    }
+
+    &__head-cell {
+        font-size: 30px;
+    }
+
+    &__row {
+    }
+
+    &__cell {
+        padding: 10px;
+        border: 2px solid #C283F3;
+        text-align: center;
+
+    }
+
+    &__cell--name {
+    }
+}
+

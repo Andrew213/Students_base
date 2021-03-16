@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Students base</title>
+</head>
+
+<body class="body">
+    <div class="container">
+        <form class="form" action="">
+            <label class="form__title"><b class="form__text">Добавить студента</b></label>
+            <div class="form__inner">
+                <input placeholder="ФИО" type="text" class="form__input form__input--name">
+                <input placeholder="Факультет" type="text" class="form__input form__input--faculty">
+                <input type="text" min="1900-01-01" class="form__input form__input--birth" placeholder="Дата рождения"
+                    onfocus="(this.type='date', this.value='1900-01-01')">
+                <input type="text" min="2000-01-01" class="form__input form__input--admission"
+                    placeholder="Дата поступления" onfocus="(this.type='date', this.value='2000-01-01')">
+            </div>
+            <button class="form__btn">Добавить</button>
+            <p class="form__error"></p>
+        </form>
+        <table class="body__table">
+            <tbody class="body__table-body">
+                <tr class="body__head">
+                    <th class="body__head-cell">ФИО</th>
+                    <th class="body__head-cell">Факультет</th>
+                    <th class="body__head-cell">Дата рождения</th>
+                    <th class="body__head-cell">Дата поступления</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
