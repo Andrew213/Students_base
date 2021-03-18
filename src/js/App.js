@@ -1,119 +1,94 @@
-export const studentsBaseArr = [
-    {
-        name:'Андрей',
-        middlename: 'Андреевич',
-        lastname: 'Пупкин',
-        faculty: 'Прикладная информатика',
-        birthdate: "12.12.1998",
-        admission: 2017,
-
-    },
-    {
-        name:'Игорь',
-        middlename: 'Владимирович',
-        lastname: 'Панков',
-        faculty: 'Туризм',
-        birthdate: "12.12.1997",
-        admission: 2019,
-
-    },
-    {
-        name:'Максим',
-        middlename: 'Владимирович',
-        lastname: 'Перепелица',
-        faculty: 'Дизайн',
-        birthdate: "31.12.2000",
-        admission: 2017,
-    },
-];
-
-const today_date = new Date();
-const today_year = today_date.getFullYear();
-const today_month = today_date.getMonth();
-const today_day = today_date.getDate();
+// СОЗДАНИЕ ТАБЛИЦЫ
+import{getEl,createTableRow}from './createTableRow'
+// МАССИВ СО СТУДЕНТАМИ
+import{studentsBaseArr} from './dataStudents'
+// ФОРМЫ ДОБАВЛЕНИЯ СТУДЕНТОВ
+import{form_nameEl,form_facultyEl,form_birthEl,form_admissionEl} from './forms'
 
 
-function zeroToDate (date){
-if(date < 10){
-    return `0${date}`
-}else{
-    return date
-}
+// ВАЛИДАЦИЯ ФОРМ #################################################
+
+const btn_submitEl = getEl('.form__btn');
+const errorMassageEl = getEl('.form__error');
+
+
+function validateForm(form,middleNameStudent,lastNameStudent){
+
+if(middleNameStudent === undefined || middleNameStudent === '' || lastNameStudent === undefined || lastNameStudent === ''){
+    errorMassageEl.textContent = 'Введите полные данные (ФИО)';
+    return false
 }
 
-export const today_dateForm = `${today_year}-${zeroToDate(today_month+1)}-${zeroToDate(today_date.getDate())}`;
-
-const ARR_Year = ['год', 'года', 'лет'];
-
-function declOfNum(number, titles) {
-    let cases = [2, 0, 1, 1, 1, 2];
-    return titles[
-      number % 100 > 4 && number % 100 < 20 ?
-      2 :
-      cases[number % 10 < 5 ? number % 10 : 5]
-    ];
-  }
-
-function addClass(el,selector){
-el.classList.add(selector);
-};
-
- export function getEl(selector){
-   return document.querySelector(selector);
-};
-
-function courseCount (num){
-if (today_year - num > 4){return 'закончил'};
-if(today_year - num === 1){return '1 курс'};
-if(today_year - num === 2){return '2 курс'};
-if(today_year - num === 3){return '3 курс'};
-if(today_year - num === 4){return '4 курс'};
+if (form.element.value.length === 0 || !form.element.value.trim()) {
+    errorMassageEl.textContent = `${form.name} введено неверно или пустое`
+    return false
+ } else {
+    errorMassageEl.textContent = '';
+     return true
+ }
 }
 
+// ВАЛИДАЦИЯ ФОРМ #################################################
 
-function calculate_age(birth_day,birth_month,birth_year){
 
-    let age = today_year - birth_year;
+// ДОБАВЛЕНИЕ СТУДЕНТА #################################################
 
-    if ( today_month < (birth_month - 1))
-    {
-        age--;
+let itemsArray = localStorage.getItem('studentsBase') ? JSON.parse(localStorage.getItem('studentsBase')) : studentsBaseArr;
+localStorage.setItem('studentsBase', JSON.stringify(itemsArray));
+let data = JSON.parse(localStorage.getItem('studentsBase'));
+
+data.forEach(el => createTableRow(el))
+
+function addStudent(name,middleName,lastName){
+
+const newStudent = {};
+const birth_day = form_birthEl.element.valueAsDate.getDate();
+const birth_month = form_birthEl.element.valueAsDate.getMonth() + 1;
+const birth_year = form_birthEl.element.valueAsDate.getFullYear(); 
+
+const allRowArr = [...document.querySelectorAll('.body__row')];
+
+newStudent.name = name;
+newStudent.middlename = middleName;
+newStudent.lastname = lastName;
+newStudent.faculty = form_facultyEl.element.value;
+newStudent.birthdate = `${birth_day}.${birth_month}.${birth_year}`;
+newStudent.admission = form_admissionEl.element.valueAsDate.getFullYear();
+
+    allRowArr.forEach(el => el.remove());
+
+    itemsArray.push(newStudent);
+
+    localStorage.setItem('studentsBase', JSON.stringify(itemsArray));
+  
+
+let dataNew= JSON.parse(localStorage.getItem('studentsBase'));
+
+dataNew.forEach(el => createTableRow(el));
+
+form_nameEl.element.value = ''
+form_facultyEl.element.value = ''
+
+}
+
+btn_submitEl.addEventListener('click', ev => {
+    ev.preventDefault();
+
+    const nameStudentArr = form_nameEl.element.value.split(' ');
+    const nameStudent = nameStudentArr[1];
+    const middlenameStudent = nameStudentArr[2];
+    const lastnameStudent = nameStudentArr[0];
+    
+    if (validateForm(form_nameEl,middlenameStudent,lastnameStudent) && validateForm(form_facultyEl,middlenameStudent,lastnameStudent) && validateForm(form_birthEl,middlenameStudent,lastnameStudent) && validateForm(form_admissionEl,middlenameStudent,lastnameStudent)){
+        addStudent(nameStudent,middlenameStudent,lastnameStudent)
     }
-    if (((birth_month - 1) == today_month) && (today_day < birth_day))
-    {
-        age--;
-    }
-    return age;
-}
+    
+})
 
-console.log(calculate_age(12,12,1998))
-
-export function createTableRow (el){
-
-const tableEl = getEl('.body__table');
-const tableRow = tableEl.insertRow();
-const tableCellName = tableRow.insertCell();
-const tableCellfaculty = tableRow.insertCell();
-const tableCellBirthDate = tableRow.insertCell();
-const tableCellAddmission = tableRow.insertCell();
-
-const birthArr = el.birthdate.split('.');
-const birth_year = birthArr[2];
-const birth_month = birthArr[1]
-const birth_day = birthArr[0];
+// ДОБАВЛЕНИЕ СТУДЕНТА #################################################
 
 
-addClass(tableRow ,'body__row');
-addClass(tableCellName ,'body__cell');
-addClass(tableCellfaculty ,'body__cell');
-addClass(tableCellBirthDate ,'body__cell');
-addClass(tableCellAddmission ,'body__cell');
 
-tableCellName.textContent = `${el.name} ${el.middlename} ${el.lastname}`;
-tableCellfaculty.textContent = `${el.faculty} (${courseCount(el.admission)})`;
-tableCellBirthDate.textContent = `${el.birthdate} (${calculate_age(birth_day,birth_month,birth_year)} ${declOfNum(calculate_age(birth_day,birth_month,birth_year),ARR_Year)})`;
-tableCellAddmission.textContent =`${el.admission}-${el.admission+4}`;
-}
 
 
 
