@@ -14,15 +14,64 @@
         <form class="form" action="">
             <label class="form__title"><b class="form__text">Добавить студента</b></label>
             <div class="form__inner">
-                <input placeholder="ФИО" type="text" class="form__input form__input--name">
-                <input placeholder="Факультет" type="text" class="form__input form__input--faculty">
-                <input type="text" min="1900-01-01" class="form__input form__input--birth" placeholder="Дата рождения"
-                    onfocus="(this.type='date', this.value='1900-01-01')">
-                <input type="text" min="2000-01-01" class="form__input form__input--admission"
-                    placeholder="Дата поступления" onfocus="(this.type='date', this.value='2000-01-01')">
+                <input 
+                placeholder="ФИО" 
+                type="text" 
+                class="form__input form__input--name"
+                >
+                <input 
+                placeholder="Факультет" 
+                type="text" 
+                class="form__input form__input--faculty"
+                >
+                <input 
+                type="text" 
+                min="1900-01-01" 
+                class="form__input form__input--birth" 
+                placeholder="Дата рождения"
+                onfocus="(this.type='date', this.value='1900-01-01')"
+                >
+                <input 
+                type="text" 
+                min="2000-01-01" 
+                class="form__input form__input--admission"
+                placeholder="Дата поступления" 
+                onfocus="(this.type='date', this.value='2000-01-01')"
+                >
             </div>
-            <button class="form__btn">Добавить</button>
-            <p class="form__error"></p>
+            <button class="form__btn form__btn--add">Добавить</button>
+            <p class="form__error form__error--add"></p>
+        </form>
+        <form class="form form-search">
+            <label class="form__title"><b class="form__text">Найти студента</b></label>
+            <div class="form__inner">
+            <input 
+            type="search" 
+            class="form__input form-search__input form-search__input--name" 
+            placeholder="Поиск по ФИО"
+            >
+            <input 
+            type="search" 
+            class="form__input form-search__input form-search__input--faculty" 
+            placeholder="Поиск по факультету"
+            >
+            <input 
+            type="text" 
+            min="1900-01-01"  
+            class="form__input form-search__input form-search__input--birth" 
+            placeholder="Поиск по дате рождения"
+            onfocus="(this.type='date', this.value='1900-01-01')"
+            >
+            <input 
+            type="text" 
+            min="2000-01-01"  
+            class="form__input form-search__input form-search__input--admission" 
+            placeholder="Поиск по дате поступления"
+            onfocus="(this.type='date', this.value='2000-01-01')"
+            >
+            </div>
+            <button class="form__btn form__btn--search">Поиск</button>
+            <p class="form__error form__error--search"></p>
         </form>
         <table class="body__table">
             <tbody class="body__table-body">

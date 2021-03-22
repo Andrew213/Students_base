@@ -1,17 +1,17 @@
-import{getEl,today_dateForm}from './createTableRow'
+import { getEl, today_dateForm } from './createTableRow'
 
 
-function excludeNumbers(el){
+function excludeNumbers(el) {
     el.addEventListener('keypress', ev => {
-        if ("1234567890-=<>,./?`[]|;'".indexOf(ev.key) != -1)
-        ev.preventDefault();
+        if ("1234567890-=<>,./?`[]|();'".indexOf(ev.key) != -1)
+            ev.preventDefault();
     })
 }
 
 export const form_nameEl = {
     name: 'Поле ФИО',
     element: getEl('.form__input--name'),
-     excludeNum:function() {
+    excludeNum: function () {
         excludeNumbers(this.element)
     },
 };
@@ -21,7 +21,7 @@ form_nameEl.excludeNum()
 export const form_facultyEl = {
     name: 'Поле факультета',
     element: getEl('.form__input--faculty'),
-    excludeNum: function() {
+    excludeNum: function () {
         excludeNumbers(this.element)
     },
 };

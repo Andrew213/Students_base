@@ -8,7 +8,7 @@
         text-align: center;
     }
 
-    &__inner{
+    &__inner {
         display: flex;
         justify-content: space-between;
     }
@@ -19,21 +19,21 @@
     }
 
     &__input {
-        border-bottom: 1px solid #C283F3;
+        border-bottom: 1px solid #c283f3;
         width: 400px;
         padding: 10px 20px;
         margin-top: 15px;
-&::placeholder{
-    font-weight: 400;
-    font-size: 18px;
-    color: #000;
-}
-    font-size: 20px;
-    &[type=date]:invalid::-webkit-datetime-edit {
-        font-weight: 400;
-    font-size: 18px;
-    color: #000;
-    }
+        &::placeholder {
+            font-weight: 400;
+            font-size: 18px;
+            color: #000;
+        }
+        font-size: 20px;
+        &[type="date"]:invalid::-webkit-datetime-edit {
+            font-weight: 400;
+            font-size: 18px;
+            color: #000;
+        }
     }
 
     &__input--name {
@@ -49,16 +49,16 @@
         display: block;
         padding: 10px 20px;
         background-color: transparent;
-        border: 2px solid #9D5CD0;
+        border: 2px solid #9d5cd0;
         font-size: 25px;
         border-radius: 20px;
-        &:hover{
-            transition: background-color, .3s;
-            background-color: #7943A4;
+        &:hover {
+            transition: background-color, 0.3s;
+            background-color: #7943a4;
             color: #fff;
         }
     }
-    &__error{
+    &__error {
         font-size: 25px;
         font-weight: 800;
         display: block;

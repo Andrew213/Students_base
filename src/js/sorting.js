@@ -18,8 +18,6 @@ function sort_nameFunc(a,b){
     }
 }
 
-
-
 function sort_facultyFunc(a,b){
     const facultyA = a.faculty.toLowerCase()+a.faculty.toLowerCase()+a.faculty.toLowerCase();
     const facultyB = b.faculty.toLowerCase()+b.faculty.toLowerCase()+b.faculty.toLowerCase();
@@ -27,7 +25,6 @@ function sort_facultyFunc(a,b){
         return -1
     } 
 }
-
 
 function sort_birthDateFunc(a,b){
     const birtdateArr_a = a.birthdate.split('.');
@@ -50,7 +47,7 @@ function sort_admissionFunc(a,b){
 }
 
 sorting_nameEl.addEventListener('click', ev => {
-      renderNewTable(data,true,sort_nameFunc)
+    renderNewTable(data,true,sort_nameFunc)
 });
 
 sorting_facultyEl.addEventListener('click', ev => {

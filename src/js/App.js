@@ -1,37 +1,13 @@
 // СОЗДАНИЕ ТАБЛИЦЫ
-import{getEl,createTableRow}from './createTableRow'
+import { getEl, createTableRow } from './createTableRow'
 // МАССИВ СО СТУДЕНТАМИ
-import{studentsBaseArr} from './dataStudents'
+import { studentsBaseArr, Person } from './dataStudents'
 // ФОРМЫ ДОБАВЛЕНИЯ СТУДЕНТОВ
-import{form_nameEl,form_facultyEl,form_birthEl,form_admissionEl} from './forms'
+import { form_nameEl, form_facultyEl, form_birthEl, form_admissionEl } from './forms'
 // ФУНКЦИЯ ПЕРЕРИСОВКИ ТАБЛИЦЫ
-import{renderNewTable} from './renderNewTable'
-
-
-
-// ВАЛИДАЦИЯ ФОРМ #################################################
-
-const btn_submitEl = getEl('.form__btn');
-const errorMassageEl = getEl('.form__error');
-
-
-function validateForm(form,middleNameStudent,lastNameStudent){
-
-if(middleNameStudent === undefined || middleNameStudent === '' || lastNameStudent === undefined || lastNameStudent === ''){
-    errorMassageEl.textContent = 'Введите полные данные (ФИО)';
-    return false
-}
-
-if (form.element.value.length === 0 || !form.element.value.trim()) {
-    errorMassageEl.textContent = `${form.name} введено неверно или пустое`
-    return false
- } else {
-    errorMassageEl.textContent = '';
-     return true
- }
-}
-
-// ВАЛИДАЦИЯ ФОРМ #################################################
+import { renderNewTable } from './renderNewTable'
+// ВАЛИДАЦИЯ ФОРМ
+import { validateForm } from './validateForms'
 
 
 // ДОБАВЛЕНИЕ СТУДЕНТА #################################################
@@ -42,20 +18,15 @@ export let data = JSON.parse(localStorage.getItem('studentsBase'));
 
 data.forEach(el => createTableRow(el))
 
-function addStudent(name,middleName,lastName){
+function addStudent(name, middleName, lastName) {
+    const birth_day = form_birthEl.element.valueAsDate.getDate();
+    const birth_month = form_birthEl.element.valueAsDate.getMonth() + 1;
+    const birth_year = form_birthEl.element.valueAsDate.getFullYear();
+    const birthdate = `${birth_day}.${birth_month}.${birth_year}`;
+    const admission = form_admissionEl.element.valueAsDate.getFullYear();
+    const faculty = form_facultyEl.element.value;
 
-const newStudent = {};
-const birth_day = form_birthEl.element.valueAsDate.getDate();
-const birth_month = form_birthEl.element.valueAsDate.getMonth() + 1;
-const birth_year = form_birthEl.element.valueAsDate.getFullYear(); 
-
-
-newStudent.name = name;
-newStudent.middlename = middleName;
-newStudent.lastname = lastName;
-newStudent.faculty = form_facultyEl.element.value;
-newStudent.birthdate = `${birth_day}.${birth_month}.${birth_year}`;
-newStudent.admission = form_admissionEl.element.valueAsDate.getFullYear();
+    const newStudent = new Person(name, middleName, lastName, faculty, birthdate, admission)
 
     itemsArray.push(newStudent);
 
@@ -65,21 +36,27 @@ newStudent.admission = form_admissionEl.element.valueAsDate.getFullYear();
 
     form_nameEl.element.value = ''
     form_facultyEl.element.value = ''
-
+    form_birthEl.element.value = ''
+    form_admissionEl.element.value = ''
 }
+
+const btn_submitEl = getEl('.form__btn--add');
 
 btn_submitEl.addEventListener('click', ev => {
     ev.preventDefault();
 
-    const nameStudentArr = form_nameEl.element.value.split(' ');
+    const nameStudentArr = form_nameEl.element.value.replace(/ /g, '').split(/(?=[А-Я])/);
     const nameStudent = nameStudentArr[1];
-    const middlenameStudent = nameStudentArr[2];
-    const lastnameStudent = nameStudentArr[0];
-    
-    if (validateForm(form_nameEl,middlenameStudent,lastnameStudent) && validateForm(form_facultyEl,middlenameStudent,lastnameStudent) && validateForm(form_birthEl,middlenameStudent,lastnameStudent) && validateForm(form_admissionEl,middlenameStudent,lastnameStudent)){
-        addStudent(nameStudent,middlenameStudent,lastnameStudent)
+    const middleNameStudent = nameStudentArr[2];
+    const lastNameStudent = nameStudentArr[0];
+
+    if (validateForm(form_nameEl, middleNameStudent, lastNameStudent) &&
+        validateForm(form_facultyEl, null, null) &&
+        validateForm(form_birthEl, null, null) &&
+        validateForm(form_admissionEl, null, null)) {
+        addStudent(nameStudent, middleNameStudent, lastNameStudent)
     }
-    
+
 })
 
 // ДОБАВЛЕНИЕ СТУДЕНТА #################################################
