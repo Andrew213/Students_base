@@ -37,10 +37,7 @@ export const studentsBaseArr = [];
 
 studentsBaseArr.push(new Person('Андрей', 'Андреевич', 'Иванов', 'Прикладная информатика', '12.12.1998', 2017));
 
-studentsBaseArr.push(new Person('Алексей', 'Алексеевич', 'Алексеев', 'Дизайн', '8.7.2000', 2019));
+studentsBaseArr.push(new Person('Алексей', 'Алексеевич', 'Алексеев', 'Дизайн', '08.07.2000', 2019));
 
 studentsBaseArr.push(new Person('Екатерина', 'Олеговна', 'Попова', 'Флористика', '15.10.1999', 2016));
 
-console.log(JSON.parse(JSON.stringify(studentsBaseArr[0])))
-
-    // console.log(JSON.parse(JSON.stringify(studentsBaseArr[0])))

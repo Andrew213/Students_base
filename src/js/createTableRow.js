@@ -39,7 +39,7 @@ export function createTableRow(el) {
     tableCellAddmission.textContent = `${el.admission}-${el.admission + 4}`;
 }
 
-// ДЛЯ МАКСИМАЛЬНОГО ЗНАЧИНЯ ИНПУТА DATE
+// ДЛЯ МАКСИМАЛЬНОГО ЗНАЧЕНИЯ ИНПУТА DATE
 
 function zeroToDate(date) {
     if (date < 10) {

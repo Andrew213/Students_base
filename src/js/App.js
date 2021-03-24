@@ -19,10 +19,8 @@ export let data = JSON.parse(localStorage.getItem('studentsBase'));
 data.forEach(el => createTableRow(el))
 
 function addStudent(name, middleName, lastName) {
-    const birth_day = form_birthEl.element.valueAsDate.getDate();
-    const birth_month = form_birthEl.element.valueAsDate.getMonth() + 1;
-    const birth_year = form_birthEl.element.valueAsDate.getFullYear();
-    const birthdate = `${birth_day}.${birth_month}.${birth_year}`;
+
+    const birthdate = form_birthEl.element.valueAsDate.toLocaleDateString();
     const admission = form_admissionEl.element.valueAsDate.getFullYear();
     const faculty = form_facultyEl.element.value;
 
@@ -59,10 +57,4 @@ btn_submitEl.addEventListener('click', ev => {
 
 })
 
-// ДОБАВЛЕНИЕ СТУДЕНТА #################################################
-
-
-
-
-
-
+// ДОБАВЛЕНИЕ СТУДЕНТА ##################################
