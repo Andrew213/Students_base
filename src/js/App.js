@@ -30,7 +30,7 @@ function addStudent(name, middleName, lastName) {
 
     localStorage.setItem('studentsBase', JSON.stringify(itemsArray));
 
-    renderNewTable(data)
+    renderNewTable()
 
     form_nameEl.element.value = ''
     form_facultyEl.element.value = ''

@@ -1,12 +1,20 @@
 import { createTableRow } from './createTableRow'
 
-export function renderNewTable(dataNew, sort = false, sortFunc = null) {
+
+/**
+ * Рендерит новую таблицу на основании данных из LS
+ *
+ * @param {Boolean} sort Ставится в условии для отработки сортировки
+ * @param {Function} sortFunc Функция, по которой происходит сортировка
+ */
+
+export function renderNewTable(sort = false, sortFunc = null) {
 
     let allRows = [...document.querySelectorAll('.body__row')];
 
     allRows.forEach(el => el.remove());
 
-    dataNew = JSON.parse(localStorage.getItem('studentsBase'));
+    let dataNew = JSON.parse(localStorage.getItem('studentsBase'));
 
     if (sort) {
         dataNew.sort(sortFunc)
